@@ -1,0 +1,15 @@
+LOAD_MODEL = "models/haxball_agent_v9_1"
+SAVE_NAME = "models/haxball_agent_v9_5"
+STEPS = 5_500_000
+OPPONENT_TYPE = "agent"
+OPPONENT_MODEL_PATH = "models/haxball_agent_v9_1"
+
+time_bleeding_penalty = 0.001
+        approaching_ball_reward = 0.1
+        ball_goal_proximity_reward = 0.1
+        XXXX left_side_oftheball_reward = 0.01
+     	right_kick_reward = 0.5
+        left_kick_penalty = 0.2
+        goal_scored_reward = 20.0
+        goal_conceded_penalty = 20.0
+

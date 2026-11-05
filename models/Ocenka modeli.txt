@@ -1,0 +1,92 @@
+
+W miare git:
+v9_1 - W miare dobry, nauczyl się ogrywać bota na jeden sposób
+
+Słabe
+v9_2a - nie wiem co on probuje zrobić
+
+v9_3 przetrenowany nie wie co robi
+
+v9_4 tez jakiś dziwny, zmusza bota do samoboja
+
+
+
+
+v14 to trenowany przeze mnie na cirriculm learning przez 2 godziny, 15 to przedluzenie tego agenta które uczylo się 20 przez milionow krokow, dalej zero efektow, oba przed zmianami predkosci i rewardow.
+
+15.1 strzela potrafi czasem ladnie strzelić gola, podchodzi to pilki jakby się jej bal
+15.2 pokazuje przebłyski inteligencji ale bardzo zadkie, rzadiej niż 15.1
+15.3 dziwnie uzaleznia swoje ruchy od przeciwnika. jeżeli chodzi o strzaly to kompletna porazka
+
+po modelu 15 nowy system, aby odpalić należy uzyc innych zapisow programu.
+
+
+16 trenowany na 13.1, fajne do pokazania
+16. JEST W  LEPIEJ, ale
+agent strzela bramki ale po około 15 sekundach, "oscyluje" obok pilki ruch gora dol w pewnej odleglosci, a potem dopiero strzela. Zdecydowanie przerosl swojego przeciwnika umiejętnościami i należy zmienić nagrody aby zmusic go do jak najszybszego strzelenia bramki
+
+
+
+nagrody przed v17:
+self.REW_TIME_PENALTY = -0.01  # Presja czasu
+        self.REW_DIST_BALL_MULT = 0.03  # Mnożnik za zbliżanie się do piłki
+        self.REW_BALL_GOAL_MULT = 0.12  # Mnożnik radaru bramkowego (atak)
+        self.REW_DEFENSE_MULT = 0.06  # Mnożnik radaru bramkowego (obrona)
+
+        self.REW_GOAL_SCORED = 100.0  # Nagroda za strzelenie gola
+        self.REW_GOAL_CONCEDED = -100.0  # Kara za stratę gola
+
+
+nagrody dla v17:
+self.REW_TIME_PENALTY = -0.05  # Presja czasu
+        self.REW_DIST_BALL_MULT = 0.01  # Mnożnik za zbliżanie się do piłki
+        self.REW_BALL_GOAL_MULT = 0.05  # Mnożnik radaru bramkowego (atak)
+        self.REW_DEFENSE_MULT = 0.02  # Mnożnik radaru bramkowego (obrona)
+
+        self.REW_GOAL_SCORED = 100.0  # Nagroda za strzelenie gola
+        self.REW_GOAL_CONCEDED = -100.0  # Kara za stratę gola
+
+v17 trenowane przeciwko v16
+również zmiana parametru 
+ent_coef=0.03  z 0.01 aby był "bardziej ciekawy"
+
+17 wyszła bardzo dobrze, w końcu cos potrafi grac, dobrze mu idzie.
+gdy sprawdzam go na bota moglby strzelac szybciej, gra lekko zbyt defensywnie, w sensie ze boi się przeciwnika, nie przjmuje inicjatywy gdy moze tylko gra kontrolowanie, a od perfekcyjnego agenta wymagam żeby idealnie atakował pierwszy i ogrywał przeciwnika.
+
+chce trenować go na bota przez krótszy czas a potem przeciw swoim poprzednim iteracjom
+
+
+
+Dalszy trening tylko nagrody za gole i kara za strate gola i czas 
+ent_coef=0.015, 
+learning_rate=1e-4, 
+
+v18 to v17 cwiczone vs bot,
+
+wszystkie do 22 to cwiczone na podstawie poprzednika vs poprzednik
+
+v18-v22:
+kolejni agenci sa dość przetrenowani, dobrze graja przeciwko sobie, ale dalej nie sa idealni, graja bardzo bezpiecznie, przy grze na gracza lekko glupieja, np nie wiedza co zrobić gdy stoi w miejscu XD, nie wykorzystują łatwych sytuacji strzeleckich
+
+a i co się okazało to przypadkiem odejmowałem ujemna kare za czas, czyli agentowi upływ czasu był na ręke XD
+także ten 5 agentow to wyrzucenia XD
+
+a i jeszcze ten nagroda i kara była spiepszona i się mogla naliczać losowo od 1-6 razy co wgl zakrzywiało proces nauki
+
+
+
+NOWA GENERACJA:
+2.1 uczony na v17 troche lepszy.
+
+2.2 dostaje wieksza presje czasu oraz uczony jako pierwszy na random learning, z szansa na gre na bota lub statycznego przeciwnika
+
+["static", "bot", "agent"],
+ weights=[0.15, 0.15, 0.70]
+
+2.2 MEGA DOBRY
+
+2.3 Wieksza presja czasu mniej ciekawski
+
+
+
+
